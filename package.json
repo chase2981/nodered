@@ -17,5 +17,8 @@
         "when": "3.7.x"
     },
     "author": "cwg",
-    "license": "ISC"
+    "license": "ISC",
+    "devDependencies": {
+        "node-red-node-twitter": "^1.0.1"
+    }
 }
