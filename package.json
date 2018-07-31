@@ -7,18 +7,18 @@
         "start": "./node_modules/.bin/node-red -s ./settings.js"
     },
     "engines": {
-        "node": "4.x"
+        "node": "8.9.4"
     },
     "dependencies": {
-        "node-red": "0.18.1",
-        "serialport": "2.1.x",
-        "aws-sdk": "2.4.x",
-        "node-red-contrib-storage-s3": "0.0.x",
-        "when": "3.7.x"
+        "node-red": "0.18.7",
+        "serialport": "6.2.2",
+        "aws-sdk": "2.283.1",
+        "node-red-contrib-storage-s3": "0.0.4",
+        "when": "3.7.8"
     },
     "author": "cwg",
     "license": "ISC",
     "devDependencies": {
-        "node-red-node-twitter": "^1.0.1"
+        "node-red-node-twitter": "1.0.1"
     }
 }
