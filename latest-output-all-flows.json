@@ -1,0 +1,994 @@
+[
+    {
+        "id": "3e798eda.5c0eb2",
+        "type": "tab",
+        "label": "twitter_monitoring_flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "86293ff2.8f806",
+        "type": "tab",
+        "label": "github_flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6314e074.eb622",
+        "type": "mongodb",
+        "z": "",
+        "hostname": "127.0.0.1",
+        "port": "27017",
+        "db": "twitter",
+        "name": ""
+    },
+    {
+        "id": "f9ac9978.27d0c8",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/tweets",
+        "wholemsg": "false"
+    },
+    {
+        "id": "6d1c4435.90cb1c",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": "AcademicRevolt"
+    },
+    {
+        "id": "25abaf21.1feff",
+        "type": "Twitter-User-Timeline-config",
+        "z": "",
+        "name": "AcademicRevolt"
+    },
+    {
+        "id": "2d381877.31e2d8",
+        "type": "mongodb",
+        "z": "",
+        "hostname": "127.0.0.1",
+        "port": "27017",
+        "db": "twitter",
+        "name": ""
+    },
+    {
+        "id": "a307fdec.e9bf1",
+        "type": "mongodb",
+        "z": "",
+        "hostname": "127.0.0.1",
+        "port": "27017",
+        "db": "twitter",
+        "name": ""
+    },
+    {
+        "id": "3dc3ef2.7f2ed1",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/twitter/tweets",
+        "wholemsg": "false"
+    },
+    {
+        "id": "e81b0d76.61ddd",
+        "type": "github-credentials",
+        "z": "",
+        "name": "personal_access_token"
+    },
+    {
+        "id": "bd716e09.00237",
+        "type": "websocket-client",
+        "z": "",
+        "path": "/ws/twitter/tweets",
+        "tls": "",
+        "wholemsg": "false"
+    },
+    {
+        "id": "8f8c9bc4.0584f8",
+        "type": "websocket-client",
+        "z": "",
+        "path": "ws://127.0.0.1:1880/ws/tweets",
+        "tls": "",
+        "wholemsg": "false"
+    },
+    {
+        "id": "3ab1c046.298f7",
+        "type": "websocket-client",
+        "z": "",
+        "path": "/ws/tweets",
+        "tls": "",
+        "wholemsg": "false"
+    },
+    {
+        "id": "d5d280f1.f77fd",
+        "type": "inject",
+        "z": "3e798eda.5c0eb2",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "cadeedfb.12d1a"
+            ]
+        ]
+    },
+    {
+        "id": "cadeedfb.12d1a",
+        "type": "debug",
+        "z": "3e798eda.5c0eb2",
+        "name": "debug_node",
+        "active": false,
+        "console": false,
+        "complete": "true",
+        "x": 410,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "f32ca609.bf4cd8",
+        "type": "http in",
+        "z": "3e798eda.5c0eb2",
+        "name": "",
+        "url": "/tweets",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 670,
+        "y": 960,
+        "wires": [
+            [
+                "4c1fe565.b374fc"
+            ]
+        ]
+    },
+    {
+        "id": "d4e0fb62.0d6e78",
+        "type": "http response",
+        "z": "3e798eda.5c0eb2",
+        "name": "",
+        "x": 1370,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "30f78c97.5fd0c4",
+        "type": "template",
+        "z": "3e798eda.5c0eb2",
+        "name": "template_node",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <head>\n        <!-- Latest compiled and minified CSS -->\n        <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\" crossorigin=\"anonymous\">\n        <script src=\"http://code.jquery.com/jquery-2.1.4.min.js\"></script>\n        <style>\n            body {\n                background-color: #2D2D30;\n                color: #C8C8C8 !important;\n            }\n        \n            .html-reporter {\n                color: whitesmoke !important;\n            }\n        \n            .html-reporter .symbol-summary li.passed:before {\n                color: #ABD03A !important;\n            }\n        \n            .html-reporter .symbol-summary li.failed:before {\n                color: #f73e3e !important;\n            }\n        \n            .html-reporter .bar.failed {\n                background-color: #f73e3e !important;\n            }\n        \n            .html-reporter .failures .spec-detail .description {\n                background-color: #f73e3e !important;\n            }\n        \n            .html-reporter .bar.menu a {\n                color: #EBF1A1 !important;\n            }\n        \n            .html-reporter .bar.skipped {\n                background-color: rgba(186, 186, 186, 0.38) !important;\n            }\n        \n            .html-reporter .symbol-summary li.disabled:before {\n                color: rgba(186, 186, 186, 0.38) !important;\n            }\n        \n            .html-reporter .bar.menu {\n                background-color: #333333;\n                color: whitesmoke;\n            }\n        \n            .html-reporter .result-message {\n                background-color: #333333 !important;\n                color: whitesmoke !important;\n            }\n        \n            .html-reporter .stack-trace {\n                background-color: #1E1E1E !important;\n                border: none !important;\n                color: #929191 !important;\n            }\n        \n            .html-reporter .suite a {\n                color: #D8D2D2 !important;\n                /*color: rgba(186, 186, 186, 0.38) !important;*/\n            }\n        \n            .html-reporter .suite li.disabled a {\n                color: #929191 !important;\n                /*color: rgba(186, 186, 186, 0.38) !important;*/\n            }\n        \n            .html-reporter .summary li.passed a {\n                color: #b4b97d !important;\n            }\n        \n            .html-reporter .summary li.failed a {\n                color: rgba(138, 41, 41, 0.88) !important;\n            }\n        </style>\n\n        \n        <style>\n            body {\n                \n                text-align: center;\n            }\n            ul {\n                text-align: left;  \n                width: 500px;\n                margin: auto;\n                list-style-type: none;\n            }\n            li {\n                border: 1px solid #999;\n                border-left-width:10px;\n                border-radius: 3px;\n                margin-bottom: 20px;\n                padding: 10px;\n            }\n            li.sentiment_positive {\n                border-left: 10px solid #69B369;\n            }\n            li.sentiment_negative {\n                border-left: 10px solid #E64444;\n            }\n            .tweet {\n                display: inline-block;\n                font-family: Helvetica;\n                width: 380px;\n                margin-left: 10px;\n            }\n            img {\n                width: 48px;\n                height: 48px;\n                border-radius: 5px;\n                vertical-align: top;\n            }\n            .user {\n                font-weight: bold; \n                min-height: 20px;\n            }\n            .bold {\n                font-weight: bold;\n            }\n        </style>\n        \n            <script type=\"text/javascript\">\n        var ws;\n        var wsUri = \"ws:\";\n        var loc = window.location;\n        console.log(loc);\n        if (loc.protocol === \"https:\") { wsUri = \"wss:\"; }\n        // This needs to point to the web socket in the Node-RED flow\n        // ... in this case it's ws/simple\n        wsUri += \"//\" + loc.host + loc.pathname.replace(\"tweets\",\"ws/tweets\");\n\n        function wsConnect() {\n            console.log(\"connect\",wsUri);\n            ws = new WebSocket(wsUri);\n            //var line = \"\";    // either uncomment this for a building list of messages\n            ws.onmessage = function(msg) {\n                var line = \"\";  // or uncomment this to overwrite the existing message\n                // parse the incoming message as a JSON object\n                var li = msg.data;\n                // console.log(li);\n                // build the output from the topic and payload parts of the object\n                // line += \"<p>\"+data+\"</p>\";\n                // replace the messages div with the new \"line\"\n                document.getElementById('twitter-stream').innerHTML = li + document.getElementById('twitter-stream').innerHTML;\n                $('#twitter-stream > li').last().remove();\n                //ws.send(JSON.stringify({data:data}));\n            }\n            ws.onopen = function() {\n                // update the status div with the connection status\n                document.getElementById('status').innerHTML = \"connected\";\n                //ws.send(\"Open for data\");\n                console.log(\"connected\");\n            }\n            ws.onclose = function() {\n                // update the status div with the connection status\n                document.getElementById('status').innerHTML = \"not connected\";\n                // in case of lost connection tries to reconnect every 3 secs\n                setTimeout(wsConnect,3000);\n            }\n        }\n        \n        function doit(m) {\n            if (ws) { ws.send(m); }\n        }\n    </script>\n        \n    </head>\n    <body  onload=\"wsConnect();\" onunload=\"ws.disconnect();\">\n        <div id=\"status\">unknown</div>\n        <div id=\"messages\"></div>\n<ul id=\"twitter-stream\">\n    {{#payload}}\n        <li class=\"sentiment_{{sentiment.text}}\">\n            <img src=\"{{tweet.user.profile_image_url}}\">\n            <span class=\"pull-right\">\n                <span class=\"badge badge-warning\">verified: {{tweet.user.verified}}</span>\n                <span class=\"badge badge-success\">retweet: {{is_retweet}}</span>\n            </span>\n            {{{tweet.source}}}\n            <div class=\"user\">\n                <span class=\"pull-right\">{{tweet.user.location}}</span>\n            </div>\n            <div class=\"tweet\">\n                <div class=\"user\">{{tweet.user.screen_name}}</div>\n                <div class=\"text\">{{tweet.retweeted_status.extended_tweet.full_text}}</div>\n                <div class=\"user\">{{tweet.created_at}}</div>\n            </div>\n        </li>\n    {{/payload}}\n</ul>\n        \n    </body>\n</html>",
+        "x": 1260,
+        "y": 1060,
+        "wires": [
+            [
+                "d4e0fb62.0d6e78"
+            ]
+        ]
+    },
+    {
+        "id": "efd8251e.b59588",
+        "type": "sentiment",
+        "z": "3e798eda.5c0eb2",
+        "name": "",
+        "property": "payload",
+        "x": 400,
+        "y": 260,
+        "wires": [
+            [
+                "f6374150.0af16"
+            ]
+        ]
+    },
+    {
+        "id": "f6374150.0af16",
+        "type": "function",
+        "z": "3e798eda.5c0eb2",
+        "name": "sentiment_analysis_fn",
+        "func": "if(msg.sentiment.score > 0){\n    msg.sentiment.text = 'positive';\n} else if(msg.sentiment.score < 0) {\n    msg.sentiment.text = 'negative';\n}\nreturn msg;\n    ",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 180,
+        "wires": [
+            [
+                "cf2d2c7f.68f9b"
+            ]
+        ]
+    },
+    {
+        "id": "4c1fe565.b374fc",
+        "type": "function",
+        "z": "3e798eda.5c0eb2",
+        "name": "sort_and_limit_fn",
+        "func": "msg.sort = {\"tweet.id\": -1};\nmsg.limit = 5;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 830,
+        "y": 1060,
+        "wires": [
+            [
+                "86bb0610.ecc398"
+            ]
+        ]
+    },
+    {
+        "id": "17fea973.ce5187",
+        "type": "debug",
+        "z": "3e798eda.5c0eb2",
+        "name": "",
+        "active": true,
+        "console": false,
+        "complete": "true",
+        "x": 1230,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "d61e3211.6624a",
+        "type": "switch",
+        "z": "3e798eda.5c0eb2",
+        "name": "is_user_verified",
+        "property": "tweet.user.verified",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 900,
+        "y": 300,
+        "wires": [
+            [
+                "a4941fc9.fde69",
+                "7f289c38.1e7624"
+            ],
+            [
+                "268b54de.c9a30c",
+                "7f289c38.1e7624"
+            ],
+            [
+                "93d44064.e113f"
+            ]
+        ]
+    },
+    {
+        "id": "268b54de.c9a30c",
+        "type": "debug",
+        "z": "3e798eda.5c0eb2",
+        "name": "user_not_verified_debug_node",
+        "active": true,
+        "console": false,
+        "complete": "true",
+        "x": 1210,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "29de86f4.4dd53a",
+        "type": "catch",
+        "z": "3e798eda.5c0eb2",
+        "name": "",
+        "scope": null,
+        "x": 140,
+        "y": 1060,
+        "wires": [
+            [
+                "ea2a92c8.59cd6"
+            ]
+        ]
+    },
+    {
+        "id": "ea2a92c8.59cd6",
+        "type": "debug",
+        "z": "3e798eda.5c0eb2",
+        "name": "catch_all_debug",
+        "active": true,
+        "console": false,
+        "complete": "true",
+        "x": 430,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "a4941fc9.fde69",
+        "type": "debug",
+        "z": "3e798eda.5c0eb2",
+        "name": "user_is_verified_debug_node",
+        "active": true,
+        "console": false,
+        "complete": "true",
+        "x": 1200,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "93d44064.e113f",
+        "type": "debug",
+        "z": "3e798eda.5c0eb2",
+        "name": "otherwise_debug_node",
+        "active": true,
+        "console": false,
+        "complete": "true",
+        "x": 1190,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "f1d82a52.c4fb68",
+        "type": "file",
+        "z": "3e798eda.5c0eb2",
+        "name": "filepath",
+        "filename": "/users/chasegibbons/repos/nodered/.vscode/database.txt",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "x": 1440,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "7f289c38.1e7624",
+        "type": "mongodb out",
+        "z": "3e798eda.5c0eb2",
+        "service": "_ext_",
+        "mongodb": "a307fdec.e9bf1",
+        "name": "",
+        "collection": "tweets",
+        "payonly": false,
+        "upsert": false,
+        "multi": false,
+        "operation": "store",
+        "x": 1510,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "86bb0610.ecc398",
+        "type": "mongodb in",
+        "z": "3e798eda.5c0eb2",
+        "service": "_ext_",
+        "mongodb": "a307fdec.e9bf1",
+        "name": "",
+        "collection": "tweets",
+        "operation": "find",
+        "x": 1060.5,
+        "y": 958,
+        "wires": [
+            [
+                "17fea973.ce5187",
+                "30f78c97.5fd0c4"
+            ]
+        ]
+    },
+    {
+        "id": "d12a0262.6dceb",
+        "type": "websocket out",
+        "z": "3e798eda.5c0eb2",
+        "name": "websocket_out_node",
+        "server": "f9ac9978.27d0c8",
+        "client": "",
+        "x": 940,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "bbf12556.10d3c8",
+        "type": "template",
+        "z": "3e798eda.5c0eb2",
+        "name": "partial_template_node",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "    {{#payload}}\n        <li class=\"sentiment_{{sentiment.text}}\">\n            <img src=\"{{tweet.user.profile_image_url}}\">\n            <span class=\"pull-right\">\n                <span class=\"badge badge-warning\">verified: {{tweet.user.verified}}</span>\n                <span class=\"badge badge-success\">retweet: {{is_retweet}}</span>\n            </span>\n            {{{tweet.source}}}\n            <div class=\"user\">\n                <span class=\"pull-right\">{{tweet.user.location}}</span>\n            </div>\n            <div class=\"tweet\">\n                <div class=\"user\">{{tweet.user.screen_name}}</div>\n                <div class=\"text\">{{tweet.retweeted_status.extended_tweet.full_text}}</div>\n                <div class=\"user\">{{tweet.created_at}}</div>\n            </div>\n        </li>\n    {{/payload}}",
+        "x": 834,
+        "y": 373,
+        "wires": [
+            [
+                "d12a0262.6dceb"
+            ]
+        ]
+    },
+    {
+        "id": "48a9fe3f.23c5",
+        "type": "twitter in",
+        "z": "3e798eda.5c0eb2",
+        "twitter": "6d1c4435.90cb1c",
+        "tags": "#deepstate",
+        "user": "false",
+        "name": "",
+        "topic": "tweets",
+        "inputs": 0,
+        "x": 110,
+        "y": 240,
+        "wires": [
+            [
+                "cadeedfb.12d1a",
+                "f979c6eb.c652f8"
+            ]
+        ]
+    },
+    {
+        "id": "cf2d2c7f.68f9b",
+        "type": "function",
+        "z": "3e798eda.5c0eb2",
+        "name": "retweet_analysis_fn",
+        "func": "if(!msg.tweet.retweeted_status){\n    msg.is_retweet = false;\n} else if(msg.tweet.retweeted_status) {\n    msg.is_retweet = true;\n}\nreturn msg;\n    ",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 650,
+        "y": 300,
+        "wires": [
+            [
+                "d61e3211.6624a",
+                "bbf12556.10d3c8",
+                "577afdc9.9806a4",
+                "2c5e357c.a7e1fa"
+            ]
+        ]
+    },
+    {
+        "id": "f979c6eb.c652f8",
+        "type": "function",
+        "z": "3e798eda.5c0eb2",
+        "name": "user_screen_name_mapping_fn",
+        "func": "\nif(msg.tweet && msg.tweet.user && msg.tweet.user.screen_name){\n//   msg.payload = {\n//       screenname: msg.tweet.user.screen_name\n//   }\n   msg.screen_name = msg.tweet.user.screen_name;\n   msg.search_screen_name = '@' + msg.tweet.user.screen_name;\n} \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 340,
+        "wires": [
+            [
+                "efd8251e.b59588"
+            ]
+        ]
+    },
+    {
+        "id": "49ac1bcf.0fee54",
+        "type": "debug",
+        "z": "3e798eda.5c0eb2",
+        "name": "is_bot",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1090,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "3229c9cd.3b2436",
+        "type": "http request",
+        "z": "3e798eda.5c0eb2",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "url": "https://osome-botometer.p.mashape.com/2/check_account",
+        "tls": "",
+        "x": 870,
+        "y": 600,
+        "wires": [
+            [
+                "49ac1bcf.0fee54"
+            ]
+        ]
+    },
+    {
+        "id": "f8d2c5ac.5c68c8",
+        "type": "inject",
+        "z": "3e798eda.5c0eb2",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 560,
+        "wires": [
+            [
+                "2763e7ea.5939c8"
+            ]
+        ]
+    },
+    {
+        "id": "12934fa4.50d4e",
+        "type": "twitter out",
+        "z": "3e798eda.5c0eb2",
+        "twitter": "6d1c4435.90cb1c",
+        "name": "Tweet",
+        "x": 2350,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "c6c5155c.fc1838",
+        "type": "function",
+        "z": "3e798eda.5c0eb2",
+        "name": "tweet_out_mapping_fn",
+        "func": "if(msg.payload && !msg.payload.length){\n    msg.payload = '@StattoBot ' + msg.screen_name;\n    return msg;\n} else {\n    return null;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1900,
+        "y": 380,
+        "wires": [
+            [
+                "58648853.b54178"
+            ]
+        ]
+    },
+    {
+        "id": "7d529289.f143bc",
+        "type": "debug",
+        "z": "3e798eda.5c0eb2",
+        "name": "tweet_out",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 2280,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "65b4a4a3.7ac78c",
+        "type": "mongodb in",
+        "z": "3e798eda.5c0eb2",
+        "service": "_ext_",
+        "mongodb": "a307fdec.e9bf1",
+        "name": "",
+        "collection": "screen_names",
+        "operation": "find",
+        "x": 1590,
+        "y": 360,
+        "wires": [
+            [
+                "6717e8f8.3171e8",
+                "c6c5155c.fc1838"
+            ]
+        ]
+    },
+    {
+        "id": "4b3f32be.6a782c",
+        "type": "mongodb out",
+        "z": "3e798eda.5c0eb2",
+        "service": "_ext_",
+        "mongodb": "a307fdec.e9bf1",
+        "name": "",
+        "collection": "screen_names",
+        "payonly": true,
+        "upsert": false,
+        "multi": false,
+        "operation": "store",
+        "x": 2430,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "31abd658.7b81ca",
+        "type": "function",
+        "z": "3e798eda.5c0eb2",
+        "name": "screen_names_mapping_fn",
+        "func": "if(!msg.screen_name) \nreturn null;\nmsg.payload = { \"payload\": \"@StattoBot \" + msg.screen_name };\nmsg.limit = 1;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1260,
+        "y": 340,
+        "wires": [
+            [
+                "65b4a4a3.7ac78c"
+            ]
+        ]
+    },
+    {
+        "id": "6717e8f8.3171e8",
+        "type": "debug",
+        "z": "3e798eda.5c0eb2",
+        "name": "is found",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1800,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "6aa0715d.7f841",
+        "type": "function",
+        "z": "3e798eda.5c0eb2",
+        "name": "screen_names_mapping_fn",
+        "func": "\nmsg.payload = { \"payload\": \"@StattoBot paulv937\" };\nmsg.limit = 1;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1480,
+        "y": 520,
+        "wires": [
+            [
+                "e419c24.474c34"
+            ]
+        ]
+    },
+    {
+        "id": "e419c24.474c34",
+        "type": "mongodb in",
+        "z": "3e798eda.5c0eb2",
+        "service": "_ext_",
+        "mongodb": "a307fdec.e9bf1",
+        "name": "",
+        "collection": "screen_names",
+        "operation": "find",
+        "x": 1810,
+        "y": 540,
+        "wires": [
+            [
+                "2ad46b34.611194"
+            ]
+        ]
+    },
+    {
+        "id": "2ad46b34.611194",
+        "type": "debug",
+        "z": "3e798eda.5c0eb2",
+        "name": "is found2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 2060,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "35f9d54e.d0753a",
+        "type": "inject",
+        "z": "3e798eda.5c0eb2",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 1260,
+        "y": 500,
+        "wires": [
+            [
+                "6aa0715d.7f841"
+            ]
+        ]
+    },
+    {
+        "id": "58648853.b54178",
+        "type": "delay",
+        "z": "3e798eda.5c0eb2",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "2",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 2080,
+        "y": 440,
+        "wires": [
+            [
+                "4b3f32be.6a782c",
+                "12934fa4.50d4e",
+                "7d529289.f143bc"
+            ]
+        ]
+    },
+    {
+        "id": "40c89121.acade",
+        "type": "github-repo",
+        "z": "86293ff2.8f806",
+        "github": "e81b0d76.61ddd",
+        "name": "",
+        "username": "RentDynamics",
+        "usernameType": "str",
+        "repository": "contact-center-flex",
+        "repositoryType": "str",
+        "action": "show",
+        "branch": "master",
+        "branchType": "str",
+        "path": "",
+        "pathType": "str",
+        "pathto": "",
+        "pathtoType": "str",
+        "contents": "payload",
+        "contentsType": "msg",
+        "outputs": "1",
+        "x": 400,
+        "y": 200,
+        "wires": [
+            [
+                "5e771cee.e2c334"
+            ]
+        ]
+    },
+    {
+        "id": "58875c94.77dce4",
+        "type": "github-user",
+        "z": "86293ff2.8f806",
+        "github": "e81b0d76.61ddd",
+        "name": "",
+        "action": "notifications",
+        "outputs": "1",
+        "options": "{}",
+        "optionsType": "json",
+        "username": "AcademicRevolt",
+        "usernameType": "str",
+        "orgname": "",
+        "orgnameType": "str",
+        "x": 160,
+        "y": 380,
+        "wires": [
+            [
+                "5e771cee.e2c334"
+            ]
+        ]
+    },
+    {
+        "id": "d627f68a.086498",
+        "type": "inject",
+        "z": "86293ff2.8f806",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 80,
+        "wires": [
+            [
+                "40c89121.acade",
+                "58875c94.77dce4",
+                "ac6b3652.37dd08"
+            ]
+        ]
+    },
+    {
+        "id": "5e771cee.e2c334",
+        "type": "debug",
+        "z": "86293ff2.8f806",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 380,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "f321fc66.302e8",
+        "type": "http request",
+        "z": "86293ff2.8f806",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "url": "https://api.github.com/users/chase2981/events",
+        "tls": "",
+        "x": 380,
+        "y": 540,
+        "wires": [
+            [
+                "5e771cee.e2c334"
+            ]
+        ]
+    },
+    {
+        "id": "ac6b3652.37dd08",
+        "type": "function",
+        "z": "86293ff2.8f806",
+        "name": "msg.payload setter",
+        "func": "// msg.payload = '@AcademicRevolt';\nmsg.headers = {\n    'Authorization': 'token c5052d2d3878015764e0e8a4e749f9b4c5e81bfd',\n    'Content-Type': 'application/vnd.github.v3+json',\n    'User-Agent': 'node-red'\n    // 'Accept': 'application/json'\n};\n// msg.payload = {\"user\":{\"id\":\"1234567890\",\"screen_name\":\"IUNetSci\",\"...\":\"...\"},\"timeline\":[{\"id\":1234567890,\"text\":\"@Botometer is so cool!\",\"...\":\"...\"},\"...\"],\"mentions\":[{\"id\":9876543210,\"text\":\"@TruthyAtIndiana is also cool!\",\"...\":\"...\"},\"...\"]};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 190,
+        "y": 480,
+        "wires": [
+            [
+                "f321fc66.302e8"
+            ]
+        ]
+    },
+    {
+        "id": "577afdc9.9806a4",
+        "type": "switch",
+        "z": "3e798eda.5c0eb2",
+        "name": "is_user_using_translator",
+        "property": "tweet.user.translator_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "none",
+                "vt": "str"
+            },
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 930,
+        "y": 60,
+        "wires": [
+            [],
+            [
+                "4650d2f9.04b87c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4650d2f9.04b87c",
+        "type": "debug",
+        "z": "3e798eda.5c0eb2",
+        "name": "translator_true",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1190,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "2c5e357c.a7e1fa",
+        "type": "delay",
+        "z": "3e798eda.5c0eb2",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "2",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 300,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1e16b7fa.d918f8",
+        "type": "http request",
+        "z": "3e798eda.5c0eb2",
+        "name": "user_timeline_http",
+        "method": "use",
+        "ret": "obj",
+        "url": "",
+        "tls": "",
+        "x": 430,
+        "y": 700,
+        "wires": [
+            [
+                "92d35b6.1632ea8",
+                "14ab4a58.dcecc6"
+            ]
+        ]
+    },
+    {
+        "id": "92d35b6.1632ea8",
+        "type": "debug",
+        "z": "3e798eda.5c0eb2",
+        "name": "get user timeline",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 660,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "2763e7ea.5939c8",
+        "type": "function",
+        "z": "3e798eda.5c0eb2",
+        "name": "setup_twitter_bearer_token",
+        "func": "var screen_name_minus_ampersand = 'academicrevolt';\n// msg.url = 'https://api.twitter.com//1.1/statuses/user_timeline.json?count=30&screen_name=' + screen_name_minus_ampersand;\nmsg.url = 'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=' + msg.tweet.user.screen_name + '&count=30';\nmsg.method = 'GET';\nmsg.headers = {\n    'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAH%2BN4wAAAAAAyKr997AxwFYq28bEnO9dp4tRMoQ%3Dzo6Q5xqViH8miqtgUM6lRTos7LAjvARwUjC19Xg4pQ5pypgPFJ'\n}\n// request body == msg.payload\nmsg.payload = {};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 640,
+        "wires": [
+            [
+                "1e16b7fa.d918f8"
+            ]
+        ]
+    },
+    {
+        "id": "14ab4a58.dcecc6",
+        "type": "function",
+        "z": "3e798eda.5c0eb2",
+        "name": "is_bot_http_loader",
+        "func": "msg.headers = {\n    'X-Mashape-Key': 'vYOUpOV3mjmshSTu9BjinMj71y8Fp1rNVL9jsngpuUHCVyVEdD',\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n};\nmsg.payload = {\n    \"user\": msg.payload[0].user, \n    \"timeline\": msg.payload,\n    \"mentions\": [\n        {\n            \"created_at\": \"Sun Sep 29 13:37:36 +0000 2019\",\n            \"id\": 1178302808954740738,\n            \"id_str\": \"1178302808954740738\",\n            \"text\": \"@AcademicRevolt 2/2\\nAcct name: academicrevolt\\nWe harvested 605 tweets since 04/02/2018, 601 days ago.\\nOf those, 113… https://t.co/vC9NSUYx4n\",\n            \"truncated\": true,\n            \"entities\": {\n                \"hashtags\": [],\n                \"symbols\": [],\n                \"user_mentions\": [\n                    {\n                        \"screen_name\": \"AcademicRevolt\",\n                        \"name\": \"Academic Revolt\",\n                        \"id\": 960240442552954880,\n                        \"id_str\": \"960240442552954880\",\n                        \"indices\": [\n                            0,\n                            15\n                        ]\n                    }\n                ],\n                \"urls\": [\n                    {\n                        \"url\": \"https://t.co/vC9NSUYx4n\",\n                        \"expanded_url\": \"https://twitter.com/i/web/status/1178302808954740738\",\n                        \"display_url\": \"twitter.com/i/web/status/1…\",\n                        \"indices\": [\n                            117,\n                            140\n                        ]\n                    }\n                ]\n            },\n            \"metadata\": {\n                \"iso_language_code\": \"en\",\n                \"result_type\": \"recent\"\n            },\n            \"source\": \"<a href=\\\"https://0.0.0.0\\\" rel=\\\"nofollow\\\">stattobot</a>\",\n            \"in_reply_to_status_id\": 1178302807419576322,\n            \"in_reply_to_status_id_str\": \"1178302807419576322\",\n            \"in_reply_to_user_id\": 922389110207254529,\n            \"in_reply_to_user_id_str\": \"922389110207254529\",\n            \"in_reply_to_screen_name\": \"StattoBot\",\n            \"user\": {\n                \"id\": 922389110207254529,\n                \"id_str\": \"922389110207254529\",\n                \"name\": \"StattoBot\",\n                \"screen_name\": \"StattoBot\",\n                \"location\": \"United Kingdom\",\n                \"description\": \"Tweet me with the name of a Twitter account & I'll reply with some basic stats & a score from IndianaU's 'Botometer' service. \\nSee my pinned tweets for details.\",\n                \"url\": null,\n                \"entities\": {\n                    \"description\": {\n                        \"urls\": []\n                    }\n                },\n                \"protected\": false,\n                \"followers_count\": 583,\n                \"friends_count\": 25,\n                \"listed_count\": 27,\n                \"created_at\": \"Mon Oct 23 09:07:55 +0000 2017\",\n                \"favourites_count\": 10,\n                \"utc_offset\": null,\n                \"time_zone\": null,\n                \"geo_enabled\": false,\n                \"verified\": false,\n                \"statuses_count\": 7075,\n                \"lang\": null,\n                \"contributors_enabled\": false,\n                \"is_translator\": false,\n                \"is_translation_enabled\": false,\n                \"profile_background_color\": \"F5F8FA\",\n                \"profile_background_image_url\": null,\n                \"profile_background_image_url_https\": null,\n                \"profile_background_tile\": false,\n                \"profile_image_url\": \"http://pbs.twimg.com/profile_images/1131148744248954880/21JuwcQd_normal.png\",\n                \"profile_image_url_https\": \"https://pbs.twimg.com/profile_images/1131148744248954880/21JuwcQd_normal.png\",\n                \"profile_link_color\": \"1DA1F2\",\n                \"profile_sidebar_border_color\": \"C0DEED\",\n                \"profile_sidebar_fill_color\": \"DDEEF6\",\n                \"profile_text_color\": \"333333\",\n                \"profile_use_background_image\": true,\n                \"has_extended_profile\": true,\n                \"default_profile\": true,\n                \"default_profile_image\": false,\n                \"following\": null,\n                \"follow_request_sent\": null,\n                \"notifications\": null,\n                \"translator_type\": \"none\"\n            },\n            \"geo\": null,\n            \"coordinates\": null,\n            \"place\": null,\n            \"contributors\": null,\n            \"is_quote_status\": false,\n            \"retweet_count\": 0,\n            \"favorite_count\": 0,\n            \"favorited\": false,\n            \"retweeted\": false,\n            \"possibly_sensitive\": false,\n            \"lang\": \"en\"\n        },\n        {\n            \"created_at\": \"Sun Sep 29 13:37:35 +0000 2019\",\n            \"id\": 1178302807419576322,\n            \"id_str\": \"1178302807419576322\",\n            \"text\": \"@AcademicRevolt @AcademicRevolt 1/2\\nAcct name: academicrevolt\\nAcct was created 601 days ago, on 04/02/2018.\\nTotal n… https://t.co/zuJBzJiWhr\",\n            \"truncated\": true,\n            \"entities\": {\n                \"hashtags\": [],\n                \"symbols\": [],\n                \"user_mentions\": [\n                    {\n                        \"screen_name\": \"AcademicRevolt\",\n                        \"name\": \"Academic Revolt\",\n                        \"id\": 960240442552954880,\n                        \"id_str\": \"960240442552954880\",\n                        \"indices\": [\n                            0,\n                            15\n                        ]\n                    },\n                    {\n                        \"screen_name\": \"AcademicRevolt\",\n                        \"name\": \"Academic Revolt\",\n                        \"id\": 960240442552954880,\n                        \"id_str\": \"960240442552954880\",\n                        \"indices\": [\n                            16,\n                            31\n                        ]\n                    }\n                ],\n                \"urls\": [\n                    {\n                        \"url\": \"https://t.co/zuJBzJiWhr\",\n                        \"expanded_url\": \"https://twitter.com/i/web/status/1178302807419576322\",\n                        \"display_url\": \"twitter.com/i/web/status/1…\",\n                        \"indices\": [\n                            117,\n                            140\n                        ]\n                    }\n                ]\n            },\n            \"metadata\": {\n                \"iso_language_code\": \"en\",\n                \"result_type\": \"recent\"\n            },\n            \"source\": \"<a href=\\\"https://0.0.0.0\\\" rel=\\\"nofollow\\\">stattobot</a>\",\n            \"in_reply_to_status_id\": 1178302657229774848,\n            \"in_reply_to_status_id_str\": \"1178302657229774848\",\n            \"in_reply_to_user_id\": 960240442552954880,\n            \"in_reply_to_user_id_str\": \"960240442552954880\",\n            \"in_reply_to_screen_name\": \"AcademicRevolt\",\n            \"user\": {\n                \"id\": 922389110207254529,\n                \"id_str\": \"922389110207254529\",\n                \"name\": \"StattoBot\",\n                \"screen_name\": \"StattoBot\",\n                \"location\": \"United Kingdom\",\n                \"description\": \"Tweet me with the name of a Twitter account & I'll reply with some basic stats & a score from IndianaU's 'Botometer' service. \\nSee my pinned tweets for details.\",\n                \"url\": null,\n                \"entities\": {\n                    \"description\": {\n                        \"urls\": []\n                    }\n                },\n                \"protected\": false,\n                \"followers_count\": 583,\n                \"friends_count\": 25,\n                \"listed_count\": 27,\n                \"created_at\": \"Mon Oct 23 09:07:55 +0000 2017\",\n                \"favourites_count\": 10,\n                \"utc_offset\": null,\n                \"time_zone\": null,\n                \"geo_enabled\": false,\n                \"verified\": false,\n                \"statuses_count\": 7075,\n                \"lang\": null,\n                \"contributors_enabled\": false,\n                \"is_translator\": false,\n                \"is_translation_enabled\": false,\n                \"profile_background_color\": \"F5F8FA\",\n                \"profile_background_image_url\": null,\n                \"profile_background_image_url_https\": null,\n                \"profile_background_tile\": false,\n                \"profile_image_url\": \"http://pbs.twimg.com/profile_images/1131148744248954880/21JuwcQd_normal.png\",\n                \"profile_image_url_https\": \"https://pbs.twimg.com/profile_images/1131148744248954880/21JuwcQd_normal.png\",\n                \"profile_link_color\": \"1DA1F2\",\n                \"profile_sidebar_border_color\": \"C0DEED\",\n                \"profile_sidebar_fill_color\": \"DDEEF6\",\n                \"profile_text_color\": \"333333\",\n                \"profile_use_background_image\": true,\n                \"has_extended_profile\": true,\n                \"default_profile\": true,\n                \"default_profile_image\": false,\n                \"following\": null,\n                \"follow_request_sent\": null,\n                \"notifications\": null,\n                \"translator_type\": \"none\"\n            },\n            \"geo\": null,\n            \"coordinates\": null,\n            \"place\": null,\n            \"contributors\": null,\n            \"is_quote_status\": false,\n            \"retweet_count\": 0,\n            \"favorite_count\": 0,\n            \"favorited\": false,\n            \"retweeted\": false,\n            \"possibly_sensitive\": false,\n            \"lang\": \"en\"\n        },\n        {\n            \"created_at\": \"Sun Sep 29 13:35:42 +0000 2019\",\n            \"id\": 1178302330741153792,\n            \"id_str\": \"1178302330741153792\",\n            \"text\": \"@AcademicRevolt 2/2\\nAcct name: bradcankook\\nWe harvested 3,213 tweets since 22/03/2019, 190 days ago.\\nOf those, 1,36… https://t.co/h59cFkDBdl\",\n            \"truncated\": true,\n            \"entities\": {\n                \"hashtags\": [],\n                \"symbols\": [],\n                \"user_mentions\": [\n                    {\n                        \"screen_name\": \"AcademicRevolt\",\n                        \"name\": \"Academic Revolt\",\n                        \"id\": 960240442552954880,\n                        \"id_str\": \"960240442552954880\",\n                        \"indices\": [\n                            0,\n                            15\n                        ]\n                    }\n                ],\n                \"urls\": [\n                    {\n                        \"url\": \"https://t.co/h59cFkDBdl\",\n                        \"expanded_url\": \"https://twitter.com/i/web/status/1178302330741153792\",\n                        \"display_url\": \"twitter.com/i/web/status/1…\",\n                        \"indices\": [\n                            117,\n                            140\n                        ]\n                    }\n                ]\n            },\n            \"metadata\": {\n                \"iso_language_code\": \"en\",\n                \"result_type\": \"recent\"\n            },\n            \"source\": \"<a href=\\\"https://0.0.0.0\\\" rel=\\\"nofollow\\\">stattobot</a>\",\n            \"in_reply_to_status_id\": 1178302328291635200,\n            \"in_reply_to_status_id_str\": \"1178302328291635200\",\n            \"in_reply_to_user_id\": 922389110207254529,\n            \"in_reply_to_user_id_str\": \"922389110207254529\",\n            \"in_reply_to_screen_name\": \"StattoBot\",\n            \"user\": {\n                \"id\": 922389110207254529,\n                \"id_str\": \"922389110207254529\",\n                \"name\": \"StattoBot\",\n                \"screen_name\": \"StattoBot\",\n                \"location\": \"United Kingdom\",\n                \"description\": \"Tweet me with the name of a Twitter account & I'll reply with some basic stats & a score from IndianaU's 'Botometer' service. \\nSee my pinned tweets for details.\",\n                \"url\": null,\n                \"entities\": {\n                    \"description\": {\n                        \"urls\": []\n                    }\n                },\n                \"protected\": false,\n                \"followers_count\": 583,\n                \"friends_count\": 25,\n                \"listed_count\": 27,\n                \"created_at\": \"Mon Oct 23 09:07:55 +0000 2017\",\n                \"favourites_count\": 10,\n                \"utc_offset\": null,\n                \"time_zone\": null,\n                \"geo_enabled\": false,\n                \"verified\": false,\n                \"statuses_count\": 7075,\n                \"lang\": null,\n                \"contributors_enabled\": false,\n                \"is_translator\": false,\n                \"is_translation_enabled\": false,\n                \"profile_background_color\": \"F5F8FA\",\n                \"profile_background_image_url\": null,\n                \"profile_background_image_url_https\": null,\n                \"profile_background_tile\": false,\n                \"profile_image_url\": \"http://pbs.twimg.com/profile_images/1131148744248954880/21JuwcQd_normal.png\",\n                \"profile_image_url_https\": \"https://pbs.twimg.com/profile_images/1131148744248954880/21JuwcQd_normal.png\",\n                \"profile_link_color\": \"1DA1F2\",\n                \"profile_sidebar_border_color\": \"C0DEED\",\n                \"profile_sidebar_fill_color\": \"DDEEF6\",\n                \"profile_text_color\": \"333333\",\n                \"profile_use_background_image\": true,\n                \"has_extended_profile\": true,\n                \"default_profile\": true,\n                \"default_profile_image\": false,\n                \"following\": null,\n                \"follow_request_sent\": null,\n                \"notifications\": null,\n                \"translator_type\": \"none\"\n            },\n            \"geo\": null,\n            \"coordinates\": null,\n            \"place\": null,\n            \"contributors\": null,\n            \"is_quote_status\": false,\n            \"retweet_count\": 0,\n            \"favorite_count\": 0,\n            \"favorited\": false,\n            \"retweeted\": false,\n            \"possibly_sensitive\": false,\n            \"lang\": \"en\"\n        },\n        {\n            \"created_at\": \"Sun Sep 29 13:35:41 +0000 2019\",\n            \"id\": 1178302328291635200,\n            \"id_str\": \"1178302328291635200\",\n            \"text\": \"@AcademicRevolt @AcademicRevolt 1/2\\nAcct name: bradcankook\\nAcct was created 3,335 days ago, on 12/08/2010.\\nTotal nu… https://t.co/dB5ZjhxgbW\",\n            \"truncated\": true,\n            \"entities\": {\n                \"hashtags\": [],\n                \"symbols\": [],\n                \"user_mentions\": [\n                    {\n                        \"screen_name\": \"AcademicRevolt\",\n                        \"name\": \"Academic Revolt\",\n                        \"id\": 960240442552954880,\n                        \"id_str\": \"960240442552954880\",\n                        \"indices\": [\n                            0,\n                            15\n                        ]\n                    },\n                    {\n                        \"screen_name\": \"AcademicRevolt\",\n                        \"name\": \"Academic Revolt\",\n                        \"id\": 960240442552954880,\n                        \"id_str\": \"960240442552954880\",\n                        \"indices\": [\n                            16,\n                            31\n                        ]\n                    }\n                ],\n                \"urls\": [\n                    {\n                        \"url\": \"https://t.co/dB5ZjhxgbW\",\n                        \"expanded_url\": \"https://twitter.com/i/web/status/1178302328291635200\",\n                        \"display_url\": \"twitter.com/i/web/status/1…\",\n                        \"indices\": [\n                            117,\n                            140\n                        ]\n                    }\n                ]\n            },\n            \"metadata\": {\n                \"iso_language_code\": \"en\",\n                \"result_type\": \"recent\"\n            },\n            \"source\": \"<a href=\\\"https://0.0.0.0\\\" rel=\\\"nofollow\\\">stattobot</a>\",\n            \"in_reply_to_status_id\": 1178302129817014274,\n            \"in_reply_to_status_id_str\": \"1178302129817014274\",\n            \"in_reply_to_user_id\": 960240442552954880,\n            \"in_reply_to_user_id_str\": \"960240442552954880\",\n            \"in_reply_to_screen_name\": \"AcademicRevolt\",\n            \"user\": {\n                \"id\": 922389110207254529,\n                \"id_str\": \"922389110207254529\",\n                \"name\": \"StattoBot\",\n                \"screen_name\": \"StattoBot\",\n                \"location\": \"United Kingdom\",\n                \"description\": \"Tweet me with the name of a Twitter account & I'll reply with some basic stats & a score from IndianaU's 'Botometer' service. \\nSee my pinned tweets for details.\",\n                \"url\": null,\n                \"entities\": {\n                    \"description\": {\n                        \"urls\": []\n                    }\n                },\n                \"protected\": false,\n                \"followers_count\": 583,\n                \"friends_count\": 25,\n                \"listed_count\": 27,\n                \"created_at\": \"Mon Oct 23 09:07:55 +0000 2017\",\n                \"favourites_count\": 10,\n                \"utc_offset\": null,\n                \"time_zone\": null,\n                \"geo_enabled\": false,\n                \"verified\": false,\n                \"statuses_count\": 7075,\n                \"lang\": null,\n                \"contributors_enabled\": false,\n                \"is_translator\": false,\n                \"is_translation_enabled\": false,\n                \"profile_background_color\": \"F5F8FA\",\n                \"profile_background_image_url\": null,\n                \"profile_background_image_url_https\": null,\n                \"profile_background_tile\": false,\n                \"profile_image_url\": \"http://pbs.twimg.com/profile_images/1131148744248954880/21JuwcQd_normal.png\",\n                \"profile_image_url_https\": \"https://pbs.twimg.com/profile_images/1131148744248954880/21JuwcQd_normal.png\",\n                \"profile_link_color\": \"1DA1F2\",\n                \"profile_sidebar_border_color\": \"C0DEED\",\n                \"profile_sidebar_fill_color\": \"DDEEF6\",\n                \"profile_text_color\": \"333333\",\n                \"profile_use_background_image\": true,\n                \"has_extended_profile\": true,\n                \"default_profile\": true,\n                \"default_profile_image\": false,\n                \"following\": null,\n                \"follow_request_sent\": null,\n                \"notifications\": null,\n                \"translator_type\": \"none\"\n            },\n            \"geo\": null,\n            \"coordinates\": null,\n            \"place\": null,\n            \"contributors\": null,\n            \"is_quote_status\": false,\n            \"retweet_count\": 0,\n            \"favorite_count\": 0,\n            \"favorited\": false,\n            \"retweeted\": false,\n            \"possibly_sensitive\": false,\n            \"lang\": \"en\"\n        },\n        {\n            \"created_at\": \"Sun Sep 29 13:21:35 +0000 2019\",\n            \"id\": 1178298780506054656,\n            \"id_str\": \"1178298780506054656\",\n            \"text\": \"@AcademicRevolt 2/2\\nAcct name: thisismecw\\nWe harvested 3,214 tweets since 31/05/2019, 121 days ago.\\nOf those, 1,121… https://t.co/deGnK3tUvu\",\n            \"truncated\": true,\n            \"entities\": {\n                \"hashtags\": [],\n                \"symbols\": [],\n                \"user_mentions\": [\n                    {\n                        \"screen_name\": \"AcademicRevolt\",\n                        \"name\": \"Academic Revolt\",\n                        \"id\": 960240442552954880,\n                        \"id_str\": \"960240442552954880\",\n                        \"indices\": [\n                            0,\n                            15\n                        ]\n                    }\n                ],\n                \"urls\": [\n                    {\n                        \"url\": \"https://t.co/deGnK3tUvu\",\n                        \"expanded_url\": \"https://twitter.com/i/web/status/1178298780506054656\",\n                        \"display_url\": \"twitter.com/i/web/status/1…\",\n                        \"indices\": [\n                            117,\n                            140\n                        ]\n                    }\n                ]\n            },\n            \"metadata\": {\n                \"iso_language_code\": \"en\",\n                \"result_type\": \"recent\"\n            },\n            \"source\": \"<a href=\\\"https://0.0.0.0\\\" rel=\\\"nofollow\\\">stattobot</a>\",\n            \"in_reply_to_status_id\": 1178298778991894528,\n            \"in_reply_to_status_id_str\": \"1178298778991894528\",\n            \"in_reply_to_user_id\": 922389110207254529,\n            \"in_reply_to_user_id_str\": \"922389110207254529\",\n            \"in_reply_to_screen_name\": \"StattoBot\",\n            \"user\": {\n                \"id\": 922389110207254529,\n                \"id_str\": \"922389110207254529\",\n                \"name\": \"StattoBot\",\n                \"screen_name\": \"StattoBot\",\n                \"location\": \"United Kingdom\",\n                \"description\": \"Tweet me with the name of a Twitter account & I'll reply with some basic stats & a score from IndianaU's 'Botometer' service. \\nSee my pinned tweets for details.\",\n                \"url\": null,\n                \"entities\": {\n                    \"description\": {\n                        \"urls\": []\n                    }\n                },\n                \"protected\": false,\n                \"followers_count\": 583,\n                \"friends_count\": 25,\n                \"listed_count\": 27,\n                \"created_at\": \"Mon Oct 23 09:07:55 +0000 2017\",\n                \"favourites_count\": 10,\n                \"utc_offset\": null,\n                \"time_zone\": null,\n                \"geo_enabled\": false,\n                \"verified\": false,\n                \"statuses_count\": 7075,\n                \"lang\": null,\n                \"contributors_enabled\": false,\n                \"is_translator\": false,\n                \"is_translation_enabled\": false,\n                \"profile_background_color\": \"F5F8FA\",\n                \"profile_background_image_url\": null,\n                \"profile_background_image_url_https\": null,\n                \"profile_background_tile\": false,\n                \"profile_image_url\": \"http://pbs.twimg.com/profile_images/1131148744248954880/21JuwcQd_normal.png\",\n                \"profile_image_url_https\": \"https://pbs.twimg.com/profile_images/1131148744248954880/21JuwcQd_normal.png\",\n                \"profile_link_color\": \"1DA1F2\",\n                \"profile_sidebar_border_color\": \"C0DEED\",\n                \"profile_sidebar_fill_color\": \"DDEEF6\",\n                \"profile_text_color\": \"333333\",\n                \"profile_use_background_image\": true,\n                \"has_extended_profile\": true,\n                \"default_profile\": true,\n                \"default_profile_image\": false,\n                \"following\": null,\n                \"follow_request_sent\": null,\n                \"notifications\": null,\n                \"translator_type\": \"none\"\n            },\n            \"geo\": null,\n            \"coordinates\": null,\n            \"place\": null,\n            \"contributors\": null,\n            \"is_quote_status\": false,\n            \"retweet_count\": 0,\n            \"favorite_count\": 0,\n            \"favorited\": false,\n            \"retweeted\": false,\n            \"possibly_sensitive\": false,\n            \"lang\": \"en\"\n        },\n        {\n            \"created_at\": \"Sun Sep 29 13:21:35 +0000 2019\",\n            \"id\": 1178298778991894528,\n            \"id_str\": \"1178298778991894528\",\n            \"text\": \"@AcademicRevolt @AcademicRevolt 1/2\\nAcct name: thisismecw\\nAcct was created 203 days ago, on 10/03/2019.\\nTotal numbe… https://t.co/JXJKGEZpwC\",\n            \"truncated\": true,\n            \"entities\": {\n                \"hashtags\": [],\n                \"symbols\": [],\n                \"user_mentions\": [\n                    {\n                        \"screen_name\": \"AcademicRevolt\",\n                        \"name\": \"Academic Revolt\",\n                        \"id\": 960240442552954880,\n                        \"id_str\": \"960240442552954880\",\n                        \"indices\": [\n                            0,\n                            15\n                        ]\n                    },\n                    {\n                        \"screen_name\": \"AcademicRevolt\",\n                        \"name\": \"Academic Revolt\",\n                        \"id\": 960240442552954880,\n                        \"id_str\": \"960240442552954880\",\n                        \"indices\": [\n                            16,\n                            31\n                        ]\n                    }\n                ],\n                \"urls\": [\n                    {\n                        \"url\": \"https://t.co/JXJKGEZpwC\",\n                        \"expanded_url\": \"https://twitter.com/i/web/status/1178298778991894528\",\n                        \"display_url\": \"twitter.com/i/web/status/1…\",\n                        \"indices\": [\n                            117,\n                            140\n                        ]\n                    }\n                ]\n            },\n            \"metadata\": {\n                \"iso_language_code\": \"en\",\n                \"result_type\": \"recent\"\n            },\n            \"source\": \"<a href=\\\"https://0.0.0.0\\\" rel=\\\"nofollow\\\">stattobot</a>\",\n            \"in_reply_to_status_id\": 1178298585252679680,\n            \"in_reply_to_status_id_str\": \"1178298585252679680\",\n            \"in_reply_to_user_id\": 960240442552954880,\n            \"in_reply_to_user_id_str\": \"960240442552954880\",\n            \"in_reply_to_screen_name\": \"AcademicRevolt\",\n            \"user\": {\n                \"id\": 922389110207254529,\n                \"id_str\": \"922389110207254529\",\n                \"name\": \"StattoBot\",\n                \"screen_name\": \"StattoBot\",\n                \"location\": \"United Kingdom\",\n                \"description\": \"Tweet me with the name of a Twitter account & I'll reply with some basic stats & a score from IndianaU's 'Botometer' service. \\nSee my pinned tweets for details.\",\n                \"url\": null,\n                \"entities\": {\n                    \"description\": {\n                        \"urls\": []\n                    }\n                },\n                \"protected\": false,\n                \"followers_count\": 583,\n                \"friends_count\": 25,\n                \"listed_count\": 27,\n                \"created_at\": \"Mon Oct 23 09:07:55 +0000 2017\",\n                \"favourites_count\": 10,\n                \"utc_offset\": null,\n                \"time_zone\": null,\n                \"geo_enabled\": false,\n                \"verified\": false,\n                \"statuses_count\": 7075,\n                \"lang\": null,\n                \"contributors_enabled\": false,\n                \"is_translator\": false,\n                \"is_translation_enabled\": false,\n                \"profile_background_color\": \"F5F8FA\",\n                \"profile_background_image_url\": null,\n                \"profile_background_image_url_https\": null,\n                \"profile_background_tile\": false,\n                \"profile_image_url\": \"http://pbs.twimg.com/profile_images/1131148744248954880/21JuwcQd_normal.png\",\n                \"profile_image_url_https\": \"https://pbs.twimg.com/profile_images/1131148744248954880/21JuwcQd_normal.png\",\n                \"profile_link_color\": \"1DA1F2\",\n                \"profile_sidebar_border_color\": \"C0DEED\",\n                \"profile_sidebar_fill_color\": \"DDEEF6\",\n                \"profile_text_color\": \"333333\",\n                \"profile_use_background_image\": true,\n                \"has_extended_profile\": true,\n                \"default_profile\": true,\n                \"default_profile_image\": false,\n                \"following\": null,\n                \"follow_request_sent\": null,\n                \"notifications\": null,\n                \"translator_type\": \"none\"\n            },\n            \"geo\": null,\n            \"coordinates\": null,\n            \"place\": null,\n            \"contributors\": null,\n            \"is_quote_status\": false,\n            \"retweet_count\": 0,\n            \"favorite_count\": 0,\n            \"favorited\": false,\n            \"retweeted\": false,\n            \"possibly_sensitive\": false,\n            \"lang\": \"en\"\n        }\n    ]\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 620,
+        "y": 640,
+        "wires": [
+            [
+                "3229c9cd.3b2436"
+            ]
+        ]
+    },
+    {
+        "id": "90596271.25b85",
+        "type": "http request",
+        "z": "3e798eda.5c0eb2",
+        "name": "user_mentions_http",
+        "method": "GET",
+        "ret": "obj",
+        "url": "",
+        "tls": "",
+        "x": 440,
+        "y": 840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "15be1d1d.228133",
+        "type": "batch",
+        "z": "3e798eda.5c0eb2",
+        "name": "",
+        "mode": "concat",
+        "count": 10,
+        "overlap": 0,
+        "interval": 10,
+        "allowEmptySequence": false,
+        "topics": [
+            {
+                "topic": ""
+            }
+        ],
+        "x": 660,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    }
+]
